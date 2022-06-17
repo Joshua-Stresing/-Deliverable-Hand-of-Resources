@@ -15,7 +15,7 @@ describe('console routes', () => {
     expect(atari).toHaveProperty('name', 'Atari');
   });
 
-  it('/consoles should return console details', async () => {
+  it('/consoles/:id should return console details', async () => {
     const resp = await request(app).get('/consoles/1');
     expect(resp.status).toEqual(200);
     expect(resp.body).toEqual({
@@ -24,6 +24,21 @@ describe('console routes', () => {
       description: 'Classically viewed as the original game console.',
       released: 1977,
     });
+  });
+
+  it('POST /consoles should add a new console', async () => {
+    const resp = await request(app).post('/consoles').send({
+      name: 'Atari',
+      description: 'Classically viewed as the original game console.',
+      released: 1977,
+    });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Atari');
+    expect(resp.body.description).toEqual(
+      'Classically viewed as the original game console.'
+    );
+    expect(resp.body.released).toEqual(1977);
+    expect(resp.body.id).not.toBeUndefined();
   });
 
   it('PUT /consoles/:id should update', async () => {
