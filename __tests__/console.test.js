@@ -26,6 +26,12 @@ describe('console routes', () => {
     });
   });
 
+  it('PUT /consoles/:id should update', async () => {
+    const resp = await request(app).put('/consoles/2').send({ name: 'N.E.S' });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('N.E.S');
+  });
+
   it('DELETE /consoles/:id should delete a console', async () => {
     const resp = await request(app).delete('/consoles/1');
     expect(resp.status).toEqual(200);
