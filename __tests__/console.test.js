@@ -8,19 +8,30 @@ describe('console routes', () => {
     return setup(pool);
   });
 
+  it('/consoles should show the list of consoles', async () => {
+    const resp = await request(app).get('/consoles');
+    expect(resp.body.length).toEqual(5);
+    const atari = resp.body.find((console) => console.id === '1');
+    expect(atari).toHaveProperty('name', 'Atari');
+  });
+
+  it('/consoles should return console details', async () => {
+    const resp = await request(app).get('/consoles/1');
+    expect(resp.status).toEqual(200);
+    expect(resp.body).toEqual({
+      id: '1',
+      name: 'Atari',
+      description: 'Classically viewed as the original game console.',
+      released: 1977,
+    });
+  });
+
   it('DELETE /consoles/:id should delete a console', async () => {
     const resp = await request(app).delete('/consoles/1');
     expect(resp.status).toEqual(200);
 
     const { body } = await request(app).get('/consoles/1');
-    expect(body).toEqual(null);
-  });
-
-  it('/consoles should show the list of consoles', async () => {
-    const res = await request(app).get('/consoles');
-    expect(res.body.length).toEqual(5);
-    const atari = res.body.find((console) => console.id === '1');
-    expect(atari).toHaveProperty('name', 'Atari');
+    expect(body).toEqual('');
   });
 
   afterAll(() => {
