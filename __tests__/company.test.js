@@ -3,15 +3,36 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('console routes', () => {
+describe('company routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
-  it('/company should show the list of companies', async () => {
+  it('/companies should show the list of companies', async () => {
     const resp = await request(app).get('/companies');
     expect(resp.body.length).toEqual(4);
     const sega = resp.body.find((company) => company.id === '1');
     expect(sega).toHaveProperty('name', 'Sega');
+  });
+
+  it('/companies/:id should return companies details', async () => {
+    const resp = await request(app).get('/companies/1');
+    expect(resp.status).toEqual(200);
+    expect(resp.body).toEqual({
+      id: '1',
+      name: 'Sega',
+      founded: 1960,
+    });
+  });
+
+  it('POST /companies should add a new companies', async () => {
+    const resp = await request(app).post('/companies').send({
+      name: 'Sega',
+      founded: 1960,
+    });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Sega');
+    expect(resp.body.founded).toEqual(1960);
+    expect(resp.body.id).not.toBeUndefined();
   });
 });
