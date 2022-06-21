@@ -36,6 +36,14 @@ describe('char routes', () => {
     expect(resp.body.id).not.toBeUndefined();
   });
 
+  it('PUT /chars/:id should update', async () => {
+    const resp = await request(app)
+      .put('/chars/1')
+      .send({ name: 'Cloud Strife' });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Cloud Strife');
+  });
+
   afterAll(() => {
     pool.end();
   });
