@@ -40,7 +40,7 @@ describe('console routes', () => {
     const resp = await request(app)
       .put('/developers/1')
       .send({ name: 'Team SONIC' });
-    // expect(resp.status).toEqual(200);
+    expect(resp.status).toEqual(200);
     expect(resp.body.name).toEqual('Team SONIC');
   });
 

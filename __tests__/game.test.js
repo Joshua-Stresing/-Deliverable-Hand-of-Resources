@@ -36,6 +36,12 @@ describe('company routes', () => {
     expect(resp.body.id).not.toBeUndefined();
   });
 
+  it('PUT /games/:id should update', async () => {
+    const resp = await request(app).put('/games/1').send({ name: 'SONIC' });
+    // expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('SONIC');
+  });
+
   afterAll(() => {
     pool.end();
   });
