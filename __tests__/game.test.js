@@ -15,6 +15,16 @@ describe('company routes', () => {
     expect(sonic).toHaveProperty('name', 'Sonic');
   });
 
+  it('/games/:id should return games details', async () => {
+    const resp = await request(app).get('/games/1');
+    expect(resp.status).toEqual(200);
+    expect(resp.body).toEqual({
+      id: '1',
+      name: 'Sonic',
+      released: 1991,
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
