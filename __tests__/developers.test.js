@@ -44,6 +44,14 @@ describe('console routes', () => {
     expect(resp.body.name).toEqual('Team SONIC');
   });
 
+  it('DELETE /developers/:id should delete a company', async () => {
+    const resp = await request(app).delete('/developers/1');
+    expect(resp.status).toEqual(200);
+
+    const { body } = await request(app).get('/developers/1');
+    expect(body).toEqual('');
+  });
+
   afterAll(() => {
     pool.end();
   });
