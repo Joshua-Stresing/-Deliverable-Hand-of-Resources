@@ -25,6 +25,17 @@ describe('console routes', () => {
     });
   });
 
+  it('POST /developers should add a new developers', async () => {
+    const resp = await request(app).post('/developers').send({
+      name: 'Team Sonic',
+      established: 1990,
+    });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Team Sonic');
+    expect(resp.body.established).toEqual(1990);
+    expect(resp.body.id).not.toBeUndefined();
+  });
+
   afterAll(() => {
     pool.end();
   });
