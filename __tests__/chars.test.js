@@ -25,6 +25,17 @@ describe('char routes', () => {
     });
   });
 
+  it('POST /chars should add a new chars', async () => {
+    const resp = await request(app).post('/chars').send({
+      name: 'Cloud',
+      description: 'Lead character of Final Fantasy 7',
+    });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Cloud');
+    expect(resp.body.description).toEqual('Lead character of Final Fantasy 7');
+    expect(resp.body.id).not.toBeUndefined();
+  });
+
   afterAll(() => {
     pool.end();
   });
