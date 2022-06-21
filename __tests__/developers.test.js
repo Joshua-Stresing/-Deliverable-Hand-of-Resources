@@ -36,6 +36,14 @@ describe('console routes', () => {
     expect(resp.body.id).not.toBeUndefined();
   });
 
+  it('PUT /developers/:id should update', async () => {
+    const resp = await request(app)
+      .put('/developers/1')
+      .send({ name: 'Team SONIC' });
+    // expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Team SONIC');
+  });
+
   afterAll(() => {
     pool.end();
   });
