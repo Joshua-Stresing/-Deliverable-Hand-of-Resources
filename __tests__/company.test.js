@@ -41,4 +41,16 @@ describe('company routes', () => {
     // expect(resp.status).toEqual(200);
     expect(resp.body.name).toEqual('SEGA');
   });
+
+  it('DELETE /companies/:id should delete a company', async () => {
+    const resp = await request(app).delete('/companies/1');
+    expect(resp.status).toEqual(200);
+
+    const { body } = await request(app).get('/companies/1');
+    expect(body).toEqual('');
+  });
+
+  afterAll(() => {
+    pool.end();
+  });
 });
