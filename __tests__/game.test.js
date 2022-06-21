@@ -42,6 +42,14 @@ describe('company routes', () => {
     expect(resp.body.name).toEqual('SONIC');
   });
 
+  it('DELETE /games/:id should delete a company', async () => {
+    const resp = await request(app).delete('/games/1');
+    expect(resp.status).toEqual(200);
+
+    const { body } = await request(app).get('/games/1');
+    expect(body).toEqual('');
+  });
+
   afterAll(() => {
     pool.end();
   });
