@@ -15,6 +15,16 @@ describe('console routes', () => {
     expect(sega).toHaveProperty('name', 'Team Sonic');
   });
 
+  it('/developers/:id should return developers details', async () => {
+    const resp = await request(app).get('/developers/1');
+    expect(resp.status).toEqual(200);
+    expect(resp.body).toEqual({
+      id: '1',
+      name: 'Team Sonic',
+      established: 1990,
+    });
+  });
+
   afterAll(() => {
     pool.end();
   });
