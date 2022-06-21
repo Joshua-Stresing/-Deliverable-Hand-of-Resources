@@ -35,4 +35,10 @@ describe('company routes', () => {
     expect(resp.body.founded).toEqual(1960);
     expect(resp.body.id).not.toBeUndefined();
   });
+
+  it('PUT /companies/:id should update', async () => {
+    const resp = await request(app).put('/companies/1').send({ name: 'SEGA' });
+    // expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('SEGA');
+  });
 });
