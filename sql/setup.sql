@@ -4,6 +4,7 @@ DROP table if exists consoles;
 DROP table if exists video_game_company;
 DROP table if exists games;
 DROP table if exists developers;
+DROP table if exists chars;
 
 CREATE table consoles (
     id BIGINT GENERATED ALWAYS AS IDENTITY,
@@ -29,6 +30,17 @@ CREATE table developers (
     name VARCHAR NOT NULL,
     established INT NOT NULL
 );
+
+CREATE table chars (
+    id BIGINT GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR NOT NULL,
+    description VARCHAR NOT NULL
+);
+
+INSERT INTO chars (name, description)
+VALUES
+('Cloud', 'Lead character of Final Fantasy 7'),
+('Mario', 'Nintendoes mascot and oldest IP');
 
 INSERT INTO developers (name, established)
 VALUES 
