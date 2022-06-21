@@ -44,6 +44,14 @@ describe('char routes', () => {
     expect(resp.body.name).toEqual('Cloud Strife');
   });
 
+  it('DELETE /chars/:id should delete a chars', async () => {
+    const resp = await request(app).delete('/chars/1');
+    expect(resp.status).toEqual(200);
+
+    const { body } = await request(app).get('/chars/1');
+    expect(body).toEqual('');
+  });
+
   afterAll(() => {
     pool.end();
   });
