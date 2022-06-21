@@ -25,6 +25,17 @@ describe('company routes', () => {
     });
   });
 
+  it('POST /games should add a new games', async () => {
+    const resp = await request(app).post('/games').send({
+      name: 'Sonic',
+      released: 1991,
+    });
+    expect(resp.status).toEqual(200);
+    expect(resp.body.name).toEqual('Sonic');
+    expect(resp.body.released).toEqual(1991);
+    expect(resp.body.id).not.toBeUndefined();
+  });
+
   afterAll(() => {
     pool.end();
   });
