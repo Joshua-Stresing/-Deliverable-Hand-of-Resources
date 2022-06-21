@@ -44,7 +44,7 @@ describe('console routes', () => {
     expect(resp.body.name).toEqual('Team SONIC');
   });
 
-  it('DELETE /developers/:id should delete a company', async () => {
+  it('DELETE /developers/:id should delete a developer', async () => {
     const resp = await request(app).delete('/developers/1');
     expect(resp.status).toEqual(200);
 

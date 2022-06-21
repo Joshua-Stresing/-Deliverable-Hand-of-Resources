@@ -3,7 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('company routes', () => {
+describe('developer routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -42,7 +42,7 @@ describe('company routes', () => {
     expect(resp.body.name).toEqual('SONIC');
   });
 
-  it('DELETE /games/:id should delete a company', async () => {
+  it('DELETE /games/:id should delete a game', async () => {
     const resp = await request(app).delete('/games/1');
     expect(resp.status).toEqual(200);
 
